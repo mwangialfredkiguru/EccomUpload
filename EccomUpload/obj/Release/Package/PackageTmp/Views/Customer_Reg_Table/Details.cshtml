@@ -1,0 +1,50 @@
+﻿@model EccomUpload.Customer_Reg_Table
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer_Reg_Table</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_First_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Second_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Second_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Phone_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Phone_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Nearest_Primary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Nearest_Primary)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Customer_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

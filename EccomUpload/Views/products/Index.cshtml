@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EccomUpload.product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table align="center" border="1" BORDERCOLOR=RED class="table table-bordered table-responsive table-hover ">
+    <tr>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.Product_Image)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.Product_Desc)
+        </th>
+        <th align="center">
+            @Html.DisplayNameFor(model => model.Product_Price)
+        </th>
+      
+        <th align="center"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td align="center">
+            
+            <img src="@Url.Content(item.Product_Image) " width="300" height="150"/>
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Product_Name)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Product_Desc)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Product_Price)
+        </td>
+        <td align="center">
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
