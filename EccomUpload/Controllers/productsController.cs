@@ -1,5 +1,8 @@
-﻿using System;
+﻿using EccomUpload.DAL;
+using EccomUpload.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -7,13 +10,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using EccomUpload;
 
 namespace EccomUpload.Controllers
 {
     public class productsController : Controller
     {
         private MaliMaliEntities db = new MaliMaliEntities();
+        string URL = ConfigurationManager.AppSettings["PicURL"] + "";
 
         // GET: products
         public ActionResult Index()
@@ -28,7 +31,7 @@ namespace EccomUpload.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            product product = db.products.Find(id);
+            var product = db.products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -47,14 +50,14 @@ namespace EccomUpload.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ImageFile,Product_Name,Product_Desc,Product_Price")] product product)
+        public ActionResult Create([Bind(Include = "ID,ImageFile,Product_Name,Product_Desc,Product_Price")] Products_Table product)
         {
             if (ModelState.IsValid)
             {
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
                 string extension = Path.GetExtension(product.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                product.Product_Image = "http://192.168.43.182:91" + "/Image/" + fileName;
+                product.Product_Image = URL + "/Image/" + fileName;
                 fileName = Path.Combine(Server.MapPath("/Image/"), fileName);
                 product.ImageFile.SaveAs(fileName);
                 db.products.Add(product);
@@ -73,7 +76,7 @@ namespace EccomUpload.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            product product = db.products.Find(id);
+            var product = db.products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -104,7 +107,7 @@ namespace EccomUpload.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            product product = db.products.Find(id);
+            var product = db.products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -117,7 +120,7 @@ namespace EccomUpload.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            product product = db.products.Find(id);
+            var product = db.products.Find(id);
             db.products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
